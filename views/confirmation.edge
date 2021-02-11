@@ -1,0 +1,72 @@
+@layout('layouts.app')
+
+@section('content')
+   
+	<!-- Page info -->
+	<div class="page-top-info">
+		<div class="container">
+			<h4>Your cart</h4>
+			<div class="site-pagination">
+				<a href="/">Home</a> /
+				<a href="#">Confirmation</a>
+			</div>
+		</div>
+	</div>
+	<!-- Page info end -->
+
+
+	<!-- checkout section  -->
+	<section class="checkout-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 order-2 order-lg-1">
+					
+						<div class="cf-title">Order Confirmation</div>
+						<div class="row">
+							<div class="col-md-7">
+								<p>!Thank You For Placing Order.</p>
+                                <p>Your order has confirmaed.</p>
+                                <p>Order Status:
+                                    @if(orderData.orderStatus=='confirmed')
+                                      <span style="color:green">Confirmed</span>
+                                    @else
+                                    <span style="color:red">Failed</span>
+                                    @endif
+                                   
+                                </p>
+                            </div>
+                            
+						</div>
+						<div class="row address-inputs">
+							<div class="col-md-12">
+							</div>
+							
+						</div>
+                    <a href="/" class="site-btn submit-order-btn">Continue Shopping</a>
+					
+				</div>
+				<div class="col-lg-4 order-1 order-lg-2">
+					<div class="checkout-cart">
+						<h3>Your Order</h3>
+						<ul class="product-list">
+
+                            @each(cartEntry in orderData.orderEntry)
+							<li>
+								<div class="pl-thumb"><img src="/img/Mini-Picture/{{cartEntry.productModel.miniPicture!=""? cartEntry.productModel.miniPicture:'default-img.png'}}" alt=""></div>
+								<a href="/detailPage/{{cartEntry.productModel.productId}}"><h6>{{cartEntry.productModel.name}}</h6></a>
+								<p>Rs.{{cartEntry.productModel.price}}</p>
+							</li>
+							@endeach
+						</ul>
+						<ul class="price-list">
+							<li>Total<span>Rs.{{orderData.orderTotalPrice}}</span></li>
+							<li>Shipping<span>free</span></li>
+							<li class="total">Total<span>Rs.{{orderData.orderTotalPrice}}</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- checkout section end -->
+@endsection
